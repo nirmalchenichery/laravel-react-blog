@@ -1,5 +1,6 @@
 import './bootstrap';
 import '../css/app.css';
+import "@popperjs/core";
 
 import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/inertia-react';

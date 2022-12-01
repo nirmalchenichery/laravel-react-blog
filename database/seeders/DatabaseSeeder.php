@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Blog;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,5 +21,12 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        
+        \App\Models\Blog::factory(30)->create();
+        // \App\Models\Comment::factory(1)->create();
+
+        $this->call([
+            UserSeeder::class,
+        ]);
     }
 }
