@@ -1,7 +1,10 @@
 import './bootstrap';
 import '../css/app.css';
 import "@popperjs/core";
+import 'datatables.net-bs5';
+import'datatables.net-responsive-bs5';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/inertia-react';
 import { InertiaProgress } from '@inertiajs/progress';

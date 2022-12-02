@@ -3,26 +3,42 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Inertia\Inertia;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
-use App\Models\Blog;
+use App\Models\User;
+use App\Http\Resources\UserResource;
+use App\Http\Requests\UserRequest;
 
-class HomeController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    protected array $sortFields = ['name', 'email','role'];
+
+    public const PER_PAGE           = 10;
+    public const DEFAULT_SORT_FIELD = 'name';
+    public const DEFAULT_SORT_ORDER = 'asc';
+
+    public function index(Request $request)
     {
-        $blogs= Blog::paginate(3);
-        return Inertia::render('Home', [
-               'blogs' =>$blogs,
-            ]);
+        $sortFieldInput = $request->input('sort_field', self::DEFAULT_SORT_FIELD);
+        $sortField      = in_array($sortFieldInput, $this->sortFields) ? $sortFieldInput : self::DEFAULT_SORT_FIELD;
+        $sortOrder      = $request->input('sort_order', self::DEFAULT_SORT_ORDER);
+        $searchInput    = $request->input('search');
+
+        $query          = User::orderBy($sortField, $sortOrder);
+
+        $perPage        = $request->input('per_page') ?? self::PER_PAGE;
+
+        if (!is_null($searchInput)) {
+            $searchQuery = "%$searchInput%";
+            $query       = $query->where('name', 'like', $searchQuery)
+                                 ->orWhere('email', 'like', $searchQuery)
+                                 ->orWhere('role','like', $searchQuery);
+        }
+        $users = $query->paginate((int)$perPage);
+        return UserResource::collection($users);
     }
 
     /**
@@ -32,7 +48,7 @@ class HomeController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('User/Create');
     }
 
     /**

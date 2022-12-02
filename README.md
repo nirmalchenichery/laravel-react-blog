@@ -18,4 +18,16 @@ npm install jquery
 npm install bootstrap
 npm i @popperjs/core
 
+npm install --save datatables.net-bs5
+npm install --save datatables.net-responsive-bs5
+npm install --save-dev @babel/preset-env
+npm i react-laravel-paginator
+
+<!-- npm i --save @fortawesome/fontawesome-svg-core
+npm install --save @fortawesome/free-solid-svg-icons
+npm install --save @fortawesome/react-fontawesome -->
+
+<!-- npm i --save @fortawesome/react-fontawesome@latest -->
+npm install font-awesome --save  
+
 php artisan migrate:refresh --seed

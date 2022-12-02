@@ -1,4 +1,6 @@
 const mix = require("laravel-mix");
+require( 'datatables.net-bs5' )();
+require( 'datatables.net-responsive-bs5' )();
 
 mix.styles(
     [
