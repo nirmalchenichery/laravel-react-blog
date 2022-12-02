@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 
 class UserRequest extends FormRequest
 {
+    protected $stopOnFirstFailure = true;
+
     protected function prepareForValidation()
     {
         $this->merge([
@@ -32,35 +34,23 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            //
-        ];
-    }
-}
-
-/*
-public function rules()
-    {
-        return [
-            'language'          => ['required'],
-            'title'             => ['required'],
-            'body'              => ['required'],
-            'is_display'        => ['required'],
-            'is_approved'       => ['required'],
-            'posted_date'       => ['required'],
-            'posted_time'       => ['required'],
+            'name'                  => ['required'],
+            'email'                 => ['required'],
+            'password'              => ['required'],
+            // 'password_confirmation' => ['required','confirmed'],
+            'role'                  => ['required'],
         ];
     }
 
     public function messages()
     {
         return [
-            'language.required'         => __('The Language field is required.'),
-            'title.required'            => __('The Title field is required.'),
-            'body.required'             => __('The Body field is required.'),
-            'is_display.required'       => __('The Choose Display Option is required.'),
-            'is_approved.required'      => __('The Approved field is required.'),
-            'posted_date.required'      => __('The Posted date field is required.'),
-            'posted_time.required'      => __('The Posted time field is required.'),
+            'name.required'      => __('The Name field is required.'),
+            'email.required'     => __('The Email field is required.'),
+            'password.required'  => __('The Password field is required.'),
+            'password_confirmation.confirmed'  => __('The password confirmation confirmation does not match.'),
+            'role.required'      => __('The Role field is required.'),
         ];
     }
-*/
+
+}

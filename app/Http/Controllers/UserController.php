@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\UserRequest;
+use Inertia\Inertia;
+// use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -57,9 +60,15 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        User::create([
+            'name'      => $request->validated('name'),
+            'password'  => Hash::make($request->validated('password')) ,
+            'email'     => $request->validated('email'),
+            'role'      => $request->validated('role'),
+        ]);
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -104,6 +113,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $this->authorize('delete',$user);
+        $user->delete();
+        return redirect()->route('dashboard');
     }
 }
