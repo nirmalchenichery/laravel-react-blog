@@ -24,6 +24,15 @@ export default function Authenticated({ auth, header, children }) {
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
+
+                                {
+                                    auth.user.role ==='admin' ? 
+                                                                <NavLink href={route('blog.index')} active={route().current('dashboard')}>
+                                                                    Blog Management
+                                                                </NavLink>
+                                                                :""
+                                }
+
                             </div>
 
                             {/* <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">

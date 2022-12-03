@@ -1,9 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/inertia-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import DataTable from '@/Components/DataTable';
 
-export default function Dashboard(props) {
+export default function UserDashboard(props) {
     
     const fetchUrl = "/user";
     const dbColumns = ["name","email","role"];
@@ -14,7 +13,7 @@ export default function Dashboard(props) {
         <AuthenticatedLayout
             auth={props.auth}
             errors={props.errors}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Welcome : {props.auth.user.name} .You have : {props.auth.user.role} rights</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Welcome : {props.auth.user.name}</h2>}
         >
             <Head title="Admin Management" />
 
@@ -33,23 +32,14 @@ export default function Dashboard(props) {
                                             tabIndex="1"
                                             className="mx-1 px-4 py-2 text-sm text-white bg-blue-500 rounded"
                                             style={{textDecoration: 'none'}}
-                                            href={route("user.create")}
+                                            href={route("home.index")}
                                         >
-                                             New User
+                                             Post
                                         </Link>
-                                       
                                     </div>
                                 </div>
                             </div>
-                            <div className="row">
-                                <DataTable  fetchUrl={fetchUrl} 
-                                            columns ={dbColumns} 
-                                            displayColumns={displayColumns} 
-                                            redirectedTo = {redirectedTo}
-                                />
-                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>

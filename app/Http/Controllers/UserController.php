@@ -79,7 +79,13 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+        if ($this->authorize('view',$user)){
+            return Inertia::render('User/Show')
+                    ->with('user' , $user);
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -90,7 +96,14 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        if($this->authorize('update', $user))
+        {
+            return Inertia::render('User/Edit')
+                ->with('user' ,$user);
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -100,9 +113,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) // Use UserRequest :- check alternative Password validation
     {
-        //
+        $this->authorize('update',User::find($id));
+        User::find($id)->update([
+            'name'      => $request->validated('name'),
+            'email'     => $request->validated('email'),
+            'role'      => $request->validated('role'),
+        ]);
+        return redirect()->route('dashboard');
     }
 
     /**

@@ -10,12 +10,12 @@ import TextInput from '@/Components/TextInput';
 
 export default function Create(props) {
     
-    const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
-        role:'',
+    const { data, setData, put, processing, errors, reset } = useForm({
+        id: props.user.id || "",
+        name: props.user.name || "",
+        email: props.user.email || "",
+        password: props.user.password || "",
+        role:   props.user.role || "",
     });
 
     const options = [
@@ -27,11 +27,11 @@ export default function Create(props) {
 
     const [selected, setSelected] = useState(options[0].value);
 
-    useEffect(() => {
-        return () => {
-            reset('password', 'password_confirmation');
-        };
-    }, []);
+    // useEffect(() => {
+    //     return () => {
+    //         reset('password', 'password_confirmation');
+    //     };
+    // }, []);
 
     const onHandleChange = (event) => {
         setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
@@ -40,7 +40,10 @@ export default function Create(props) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('user.store'));
+        
+        console.log(data.role);
+
+        put(route("user.update", data.id));
     };
 
     const handleChangeSelect = event => {
@@ -117,7 +120,7 @@ export default function Create(props) {
 
                                     </div>
 
-                                    <div className="mt-4">
+                                    {/* <div className="mt-4">
                                         <InputLabel forInput="password" value="Password" />
 
                                         <TextInput
@@ -132,9 +135,9 @@ export default function Create(props) {
                                         />
 
                                         <InputError message={errors.password} className="mt-2" />
-                                    </div>
+                                    </div> */}
 
-                                    <div className="mt-4">
+                                    {/* <div className="mt-4">
                                         <InputLabel forInput="password_confirmation" value="Confirm Password" />
 
                                         <TextInput
@@ -148,11 +151,11 @@ export default function Create(props) {
                                         />
 
                                         <InputError message={errors.password_confirmation} className="mt-2" />
-                                    </div>
+                                    </div> */}
 
                                     <div className="mt-4">
                                         <InputLabel forInput="role" value="Role" />
-                                        <select value={selected} onChange={handleChangeSelect} className="mt-1 block w-full">
+                                        <select value={data.role} onChange={handleChangeSelect} className="mt-1 block w-full">
                                             {options.map(option => (
                                                 <option key={option.value} value={option.value}>
                                                     {option.text}
@@ -166,7 +169,7 @@ export default function Create(props) {
                                     <div className="flex items-center justify-end mt-4">
                                         
                                         <PrimaryButton className="ml-4" processing={processing}>
-                                            Register
+                                            Save
                                         </PrimaryButton>
 
                                     </div>

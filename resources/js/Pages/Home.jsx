@@ -49,7 +49,7 @@ export default function Home(props) {
                 <div className="container ps-5 pe-5">
                     <div className="row">
                         <div className="col-12 p-2 text-center mt-4 mb-4 border-bottom-black">
-                            <h1 className="fw-bolder fs-1">Welcome to my blog!</h1>
+                            <h1 className="fw-bolder fs-1">Blog!</h1>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae dui et nunc ornare vulputate non
                             fringilla massa.</p>
                         </div>

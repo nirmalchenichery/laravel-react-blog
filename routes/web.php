@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BlogController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,9 +20,13 @@ use App\Http\Controllers\UserController;
 */
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
     
-Route::get('/user/index', [UserController::class, 'index'])->name('user.index');
+Route::get('/user', [UserController::class, 'index'])->name('user.index');
+Route::get('/user', [UserController::class, 'show'])->name('user.show');
 
 Route::resource('/user', UserController::class);
+
+Route::resource('/blog', BlogController::class);
+
 
 
 // Route::get('/', function () {
@@ -33,10 +39,16 @@ Route::resource('/user', UserController::class);
 // });
 
 Route::get('/dashboard', function () {
-
     
-    return Inertia::render('Dashboard');
-
+    if (Gate::allows('isAdmin')){
+        return Inertia::render('Dashboard');
+    }
+    elseif(Gate::allows('isManager')){
+        return Inertia::render('ManagerDashboard');
+    }
+    elseif(Gate::allows('isUser')){
+        return Inertia::render('UserDashboard');
+    }
 
 })->middleware(['auth', 'verified'])->name('dashboard');
 

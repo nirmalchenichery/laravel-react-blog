@@ -3,12 +3,20 @@ import { Head, Link } from '@inertiajs/inertia-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DataTable from '@/Components/DataTable';
 
-export default function Dashboard(props) {
+export default function Index(props) {
     
-    const fetchUrl = "/user";
-    const dbColumns = ["name","email","role"];
-    const displayColumns =  ["Name","Email","Role","Action"];
-    const redirectedTo ="user"; // Controller Action
+    const { blogs } = usePage().props
+
+    // const fetchUrl = "/user";
+    // const dbColumns = ["name","email","role"];
+    // const displayColumns =  ["Name","Email","Role","Action"];
+    // const redirectedTo ="user"; // Controller Action
+
+     const blog_list = blogs.map( (blog, index) => {
+        return <BlogListItem key={index} blog={blog}/>
+    })
+
+
 
     return (
         <AuthenticatedLayout
@@ -31,22 +39,34 @@ export default function Dashboard(props) {
                                     <div className="p-2 mt-4 mb-4">
                                         <Link
                                             tabIndex="1"
-                                            className="mx-1 px-4 py-2 text-sm text-white bg-blue-500 rounded"
+                                            className="mx-1 px-4 py-2 text-sm text-white bg-green-500 rounded"
                                             style={{textDecoration: 'none'}}
                                             href={route("user.create")}
                                         >
-                                             New User
+                                             Create Post
                                         </Link>
                                        
                                     </div>
                                 </div>
                             </div>
                             <div className="row">
-                                <DataTable  fetchUrl={fetchUrl} 
+                                <div className="w-full">
+                                        <div className="grid grid-cols-8">
+                                            <div className="px-4 py-2 w-20 font-bold">No.</div>
+                                            <div className="px-4 py-2 font-bold">Title</div>
+                                            <div className="px-4 py-2 font-bold">Description</div>
+                                            <div className="px-4 py-2 font-bold">Author</div>
+                                            <div className="px-4 py-2 font-bold">Approved</div>
+                                            <div className="px-4 py-2 font-bold">Posted at</div>
+                                            <div className="px-4 py-2 font-bold">Action</div>
+                                        </div>
+                                </div>
+
+                                {/* <DataTable  fetchUrl={fetchUrl} 
                                             columns ={dbColumns} 
                                             displayColumns={displayColumns} 
                                             redirectedTo = {redirectedTo}
-                                />
+                                /> */}
                             </div>
                         </div>
 
