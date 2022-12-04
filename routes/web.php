@@ -27,6 +27,9 @@ Route::resource('/user', UserController::class);
 
 Route::resource('/blog', BlogController::class);
 
+Route::get('/getblog', [BlogController::class, 'getBlog'])->name('blog.getBlog');
+
+
 
 
 // Route::get('/', function () {

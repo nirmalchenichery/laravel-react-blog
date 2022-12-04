@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\BlogRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\BlogResource;
 
 
 class BlogController extends Controller
@@ -18,9 +19,41 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    // protected array $sortFields = ['title', 'description','author'];
+
+    protected array $sortFields = ['user_id','language','title','description','content','author','author_image_url',
+    'image_url_portrait','image_url_landscape','is_trending','is_display','is_approved','posted_at'];
+
+    public const PER_PAGE           = 10;
+    public const DEFAULT_SORT_FIELD = 'id';
+    public const DEFAULT_SORT_ORDER = 'asc';
+
+    public function getBlog(Request $request)
+    {
+        $sortFieldInput = $request->input('sort_field', self::DEFAULT_SORT_FIELD);
+        $sortField      = in_array($sortFieldInput, $this->sortFields) ? $sortFieldInput : self::DEFAULT_SORT_FIELD;
+        $sortOrder      = $request->input('sort_order', self::DEFAULT_SORT_ORDER);
+        $searchInput    = $request->input('search');
+
+        $query          = Blog::orderBy($sortField, $sortOrder);
+
+        $perPage        = $request->input('per_page') ?? self::PER_PAGE;
+
+        if (!is_null($searchInput)) {
+            $searchQuery = "%$searchInput%";
+            $query       = $query->where('name', 'like', $searchQuery)
+                                 ->orWhere('email', 'like', $searchQuery)
+                                 ->orWhere('role','like', $searchQuery);
+        }
+
+        $blogs = $query->paginate((int)$perPage);
+        return BlogResource::collection($blogs);
+    }
+
     public function index()
     {
-        $blogs = Blog::paginate(5);
+        $blogs = Blog::paginate(3);
         return Inertia::render('Blog/Index')
                 ->with('blogs' , $blogs);
     }
@@ -32,7 +65,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Blog/Create');
     }
 
     /**
@@ -41,9 +74,28 @@ class BlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BlogRequest $request)
     {
-        //
+        $posted_at=  $request->validated('posted_date') . " ". $request->validated('posted_time');
+
+        Blog::create([
+            'language'              => $request->validated('language'),
+            'title'                 => $request->validated('title'),
+            'description'           => $request->validated('description'),
+            'content'               => $request->validated('content'),
+            'author'                =>Auth::user()->name,
+            'is_display'            => $request->validated('is_display'),
+            'is_approved'           => $request->validated('is_approved'),
+            'posted_at'             => date('Y-m-d H:i:s', strtotime($posted_at)),
+            'user_id'               => Auth::user()->id,
+            'author_image_url'      =>"https://picsum.photos/300/350",
+            'image_url_portrait'    =>"https://picsum.photos/300/350",
+            'image_url_landscape'   =>"https://picsum.photos/300/350",
+            'is_trending'           =>true,
+            
+        ]);
+        
+        return redirect()->route('blog.index');
     }
 
     /**
@@ -88,6 +140,10 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $blog = Blog::findOrFail($id);
+        $this->authorize('delete', $blog);
+        $blog->delete();
+        return redirect()->route('blog.index');
+        
     }
 }
