@@ -26,7 +26,7 @@ export default function Authenticated({ auth, header, children }) {
                                 </NavLink>
 
                                 {
-                                    auth.user.role ==='admin' ? 
+                                    auth.user.role ==='admin' || auth.user.role ==='manager' ? 
                                                                 <NavLink href={route('blog.index')} active={route().current('dashboard')}>
                                                                     Blog Management
                                                                 </NavLink>

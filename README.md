@@ -12,6 +12,7 @@
 7. Run tinker, Factory Command.Execute the following command on command prompt to generate or create dummy data using tinker and factory command: `php artisan tinker` and `Post::factory()->count(20)->create()`
 8. run `npm i --save moment`
 
+--npm install moment
 
 npm install laravel-mix --save-dev
 npm install jquery

@@ -24,6 +24,7 @@ const BlogListItemIndex = (props) => {
                 <Link
                     tabIndex="1"
                     className="mx-1 px-4 py-2 text-sm text-white bg-blue-500 rounded"
+                    style={{textDecoration: 'none'}}
                     href={route("blog.show", props.blog.id)}
                 >
                     Show
@@ -31,19 +32,24 @@ const BlogListItemIndex = (props) => {
                 <Link
                     tabIndex="1"
                     className="mx-1 px-4 py-2 text-sm text-white bg-green-500 rounded"
+                    style={{textDecoration: 'none'}}
                     href={route("blog.edit", props.blog.id)}
                 >
                     Edit
                 </Link>
+
                 <button
                     onClick={destroy}
                     id={props.blog.id}
                     tabIndex="-1"
                     type="button"
                     className="mx-1 px-4 py-2 text-sm text-white bg-red-500 rounded"
+                    style={{textDecoration: 'none'}}
                 >
                     Delete
                 </button>
+
+
             </div>
         </div>
     );

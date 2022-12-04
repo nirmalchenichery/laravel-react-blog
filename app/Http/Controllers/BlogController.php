@@ -53,9 +53,14 @@ class BlogController extends Controller
 
     public function index()
     {
-        $blogs = Blog::paginate(3);
-        return Inertia::render('Blog/Index')
-                ->with('blogs' , $blogs);
+        if(Gate::allows('isAdmin') || Gate::allows('isManager')){
+            $blogs = Blog::paginate(3);
+            return Inertia::render('Blog/Index')
+                    ->with('blogs' , $blogs);
+        }else{
+            abort(403);
+        }
+       
     }
 
     /**
@@ -76,6 +81,7 @@ class BlogController extends Controller
      */
     public function store(BlogRequest $request)
     {
+        // Checkbox and Radio button
         $posted_at=  $request->validated('posted_date') . " ". $request->validated('posted_time');
 
         Blog::create([
@@ -83,7 +89,7 @@ class BlogController extends Controller
             'title'                 => $request->validated('title'),
             'description'           => $request->validated('description'),
             'content'               => $request->validated('content'),
-            'author'                =>Auth::user()->name,
+            'author'                => Auth::user()->name,
             'is_display'            => $request->validated('is_display'),
             'is_approved'           => $request->validated('is_approved'),
             'posted_at'             => date('Y-m-d H:i:s', strtotime($posted_at)),
@@ -106,7 +112,11 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        //
+        $blog = Blog::findOrFail($id);
+        $this->authorize('view', $blog);
+
+        return Inertia::render('Blog/Show')
+                ->with('blog' , $blog);
     }
 
     /**
@@ -117,7 +127,15 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        //
+        $blog = Blog::findOrFail($id);
+
+        if($this->authorize('update', $blog))
+        {
+            return Inertia::render('Blog/Edit')
+                ->with('blog' ,$blog);
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -127,9 +145,29 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BlogRequest $request, $id)
     {
-        //
+        // Checkbox and Radio button
+        $posted_at=  $request->validated('posted_date') . " ". $request->validated('posted_time');
+
+        Blog::create([
+            'language'              => $request->validated('language'),
+            'title'                 => $request->validated('title'),
+            'description'           => $request->validated('description'),
+            'content'               => $request->validated('content'),
+            'author'                => Auth::user()->name,
+            'is_display'            => $request->validated('is_display'),
+            'is_approved'           => $request->validated('is_approved'),
+            'posted_at'             => date('Y-m-d H:i:s', strtotime($posted_at)),
+            'user_id'               => Auth::user()->id,
+            'author_image_url'      =>"https://picsum.photos/300/350",
+            'image_url_portrait'    =>"https://picsum.photos/300/350",
+            'image_url_landscape'   =>"https://picsum.photos/300/350",
+            'is_trending'           =>true,
+            
+        ]);
+        
+        return redirect()->route('blog.index');
     }
 
     /**
