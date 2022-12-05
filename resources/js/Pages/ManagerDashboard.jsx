@@ -25,18 +25,30 @@ export default function UserDashboard(props) {
                             <div className="row">
                                 <div className="col-12 p-2 text-left text-dark mt-4">
                                 
-                                <h2 className="font-semibold text-xl text-gray-800 leading-tight">User List</h2>
+                                <h2 className="font-semibold text-xl text-gray-800 leading-tight"></h2>
 
                                     <div className="p-2 mt-4 mb-4">
                                         <Link
                                             tabIndex="1"
-                                            className="mx-1 px-4 py-2 text-sm text-white bg-blue-500 rounded"
+                                            className="mx-1 px-4 py-2 text-sm text-white bg-orange-400 rounded"
                                             style={{textDecoration: 'none'}}
                                             href={route("home.index")}
                                         >
-                                             Post
+                                             Blog Home Preview
                                         </Link>
                                     </div>
+
+                                    <div className="p-2 mt-4 mb-4">
+                                        <Link
+                                            tabIndex="1"
+                                            className="mx-1 px-4 py-2 text-sm text-white bg-orange-400 rounded"
+                                            style={{textDecoration: 'none'}}
+                                            href={route("blog.index")}
+                                        >
+                                             Blog Management
+                                        </Link>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

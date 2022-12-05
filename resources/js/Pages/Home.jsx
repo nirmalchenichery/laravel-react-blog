@@ -5,13 +5,11 @@ import { Inertia } from "@inertiajs/inertia";
 import BlogListItem from '@/Components/BlogListItem';
 import TrendingListItem from '@/Components/TrendingListItem';
 import Pagination from '@/Components/Pagination';
+import BlogTitle from '@/Components/BlogTitle';
 
 export default function Home(props) {
     
     const { blogs } = usePage().props;
-   
-    console.log(blogs);
-
 
     const blog_list = blogs.data.map( (blog, index) => {
         return <BlogListItem key={index} blog={blog}/>
@@ -47,13 +45,8 @@ export default function Home(props) {
                 </div>
                 
                 <div className="container ps-5 pe-5">
-                    <div className="row">
-                        <div className="col-12 p-2 text-center mt-4 mb-4 border-bottom-black">
-                            <h1 className="fw-bolder fs-1">Blog!</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae dui et nunc ornare vulputate non
-                            fringilla massa.</p>
-                        </div>
-                    </div>
+
+                    <BlogTitle />
 
                     <div className="row">
                         <div className="col-lg-8 col-12"> 

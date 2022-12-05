@@ -17,7 +17,7 @@ export default function Index(props) {
     // const redirectedTo ="blog"; // Controller Action
 
      const blog_list = props.blogs.data.map( (blog, index) => {
-        return <BlogListItemIndex key={index} blog={blog}/>
+        return <BlogListItemIndex key={index} blog={blog} role={props.auth.user.role}/>
     })
 
 
@@ -46,9 +46,17 @@ export default function Index(props) {
                                             style={{textDecoration: 'none'}}
                                             href={route("blog.create")}
                                         >
-                                             Create Post
+                                             Create Blog
                                         </Link>
-                                       
+
+                                        <Link
+                                            tabIndex="1"
+                                            className="mx-1 px-4 py-2 text-sm text-white bg-orange-500 rounded"
+                                            style={{textDecoration: 'none'}}
+                                            href={route("home.index")}
+                                        >
+                                             Blog Home Preview
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

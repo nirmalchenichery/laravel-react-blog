@@ -7,7 +7,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogController;
-
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,30 +19,18 @@ use App\Http\Controllers\BlogController;
 |
 */
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
-    
 Route::get('/user', [UserController::class, 'index'])->name('user.index');
 Route::get('/user', [UserController::class, 'show'])->name('user.show');
-
 Route::resource('/user', UserController::class);
-
 Route::resource('/blog', BlogController::class);
-
 Route::get('/getblog', [BlogController::class, 'getBlog'])->name('blog.getBlog');
+Route::get('/showblog/{id}', [BlogController::class, 'showBlog'])->name('blog.showBlog');
 
+Route::resource('/comment', CommentController::class);
+Route::get('/commentlist/{id}', [CommentController::class, 'index'])->name('comment.index');
 
-
-
-// Route::get('/', function () {
-//     return Inertia::render('Home', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
 
 Route::get('/dashboard', function () {
-    
     if (Gate::allows('isAdmin')){
         return Inertia::render('Dashboard');
     }
@@ -52,7 +40,6 @@ Route::get('/dashboard', function () {
     elseif(Gate::allows('isUser')){
         return Inertia::render('UserDashboard');
     }
-
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

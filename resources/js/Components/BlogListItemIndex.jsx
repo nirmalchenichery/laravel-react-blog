@@ -37,19 +37,20 @@ const BlogListItemIndex = (props) => {
                 >
                     Edit
                 </Link>
-
-                <button
-                    onClick={destroy}
-                    id={props.blog.id}
-                    tabIndex="-1"
-                    type="button"
-                    className="mx-1 px-4 py-2 text-sm text-white bg-red-500 rounded"
-                    style={{textDecoration: 'none'}}
-                >
-                    Delete
-                </button>
-
-
+                {
+                    props.role == 'admin' ? 
+                                            <button
+                                            onClick={destroy}
+                                            id={props.blog.id}
+                                            tabIndex="-1"
+                                            type="button"
+                                            className="mx-1 px-4 py-2 text-sm text-white bg-red-500 rounded"
+                                            style={{textDecoration: 'none'}}
+                                        >
+                                            Delete
+                                        </button>
+                                        :""
+                }
             </div>
         </div>
     );

@@ -184,4 +184,14 @@ class BlogController extends Controller
         return redirect()->route('blog.index');
         
     }
+
+    public function showBlog($id)
+    {
+        $blog = Blog::findOrFail($id);
+        // $this->authorize('delete', $blog);
+        // $blog->delete();
+        return Inertia::render('Blog/ShowBlog')
+                ->with('blog' ,$blog);
+    }
+
 }
