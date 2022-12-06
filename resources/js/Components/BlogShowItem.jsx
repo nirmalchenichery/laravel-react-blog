@@ -55,7 +55,7 @@ const BlogShowItem = (props) => {
                 </tr>
                 <tr>
                     <th scope="row">Posted Date</th>
-                    <td>{props.blog.posted_time}</td>
+                    <td>{props.blog.posted_at}</td>
                 </tr>
             </tbody>
         </table>

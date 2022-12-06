@@ -31,7 +31,7 @@ class BlogPolicy
      */
     public function view(User $user, Blog $blog)
     {
-        return Gate::allows('isAdmin');
+        return Gate::allows('isAdmin') || Gate::allows('isManager');
     }
 
     /**
@@ -42,7 +42,7 @@ class BlogPolicy
      */
     public function create(User $user)
     {
-        return Gate::allows('isAdmin');
+        return Gate::allows('isAdmin')|| Gate::allows('isManager');
     }
 
     /**
@@ -54,7 +54,7 @@ class BlogPolicy
      */
     public function update(User $user, Blog $blog)
     {
-        return Gate::allows('isAdmin');
+        return Gate::allows('isAdmin') || Gate::allows('isManager');
     }
 
     /**

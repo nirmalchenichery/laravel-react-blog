@@ -80,7 +80,7 @@ export default function Show(props) {
                             <div className="row">
                                 <div className="col-12 p-2 text-left text-dark mt-4">
                                 
-                                <h2 className="font-semibold text-xl text-gray-800 leading-tight">User Details</h2>
+                                <h2 className="font-semibold text-xl text-gray-800 leading-tight">Blog</h2>
 
                                     <div className="p-2 mt-4 mb-4">
                                         <Link
@@ -97,28 +97,23 @@ export default function Show(props) {
                             </div>
                             <div className="row">
                                 <BlogShowItem  blog={data}/>
-                                {/* <div className="table table-bordered">
-                                    <div>
-                                        <div>
-                                            <div scope="row">ID</div>
-                                            <div>x</div>
-                                        </div>
-                                        <div>
-                                            <div scope="row">Name</div>
-                                            <div>xx</div>
-                                        </div>
-                                        <div>
-                                            <div scope="row">Email</div>
-                                            <div>xx</div>
-                                        </div>
-                                        <div>
-                                            <div scope="row">Role</div>
-                                            <div>xx</div>
-                                        </div>
-                                    </div>
-                                </div> */}
                             </div>
+
+                            <div className="row">
+                                {/* <button
+                                    type="submit"
+                                    className="mx-1 px-4 py-2 text-sm text-white bg-orange-400 rounded"
+                                >
+                                    Comments
+                                </button> */}
+                                <h1 className="mx-1 px-4 py-2 text-sm text-white bg-orange-400 rounded">Comments</h1>
+                            </div>
+                            <div className="row">
+                                <br />
+                            </div>
+
                         </div>
+                       
                     </div>
                 </div>
             </div>

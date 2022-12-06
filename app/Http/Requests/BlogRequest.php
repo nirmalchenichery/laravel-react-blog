@@ -25,7 +25,7 @@ class BlogRequest extends FormRequest
 
     public function authorize()
     {
-        return Gate::allows('isAdmin');
+        return Gate::allows('isAdmin') || Gate::allows('isManager');
     }
 
     /**

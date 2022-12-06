@@ -8,6 +8,7 @@ export default function Dashboard(props) {
     const fetchUrl = "/user";
     const dbColumns = ["name","email","role"];
     const displayColumns =  ["Name","Email","Role","Action"];
+    
     const redirectedTo ="user"; // Controller Action
 
     return (

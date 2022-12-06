@@ -66,7 +66,7 @@ class UserController extends Controller
             'name'      => $request->validated('name'),
             'password'  => Hash::make($request->validated('password')) ,
             'email'     => $request->validated('email'),
-            'role'      => $request->validated('role'),
+            'role'      => $request->validated('role'), // user / manager / admin
         ]);
         return redirect()->route('dashboard');
     }

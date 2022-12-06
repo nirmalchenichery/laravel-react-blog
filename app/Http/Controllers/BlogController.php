@@ -188,10 +188,14 @@ class BlogController extends Controller
     public function showBlog($id)
     {
         $blog = Blog::findOrFail($id);
-        // $this->authorize('delete', $blog);
-        // $blog->delete();
         return Inertia::render('Blog/ShowBlog')
                 ->with('blog' ,$blog);
+    }
+
+    public function upvote(BlogRequest $request){
+        //authorize::isUser
+        //blog request -> post id
+        // add +1
     }
 
 }

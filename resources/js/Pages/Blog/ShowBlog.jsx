@@ -122,17 +122,6 @@ export default function ShowBlog(props) {
                             {comment_list}
                         </div>
 
-
-                        {/* <div className="">
-                            { ? (
-                                "already Login"
-
-                            ) : (
-                                <>
-                                    "login "
-                                </>
-                            )}
-                        </div> */}
                     </div>    
                 </div>
             </div>

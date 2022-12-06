@@ -1,11 +1,13 @@
 
 import { debounce } from "lodash"
 import React, { useEffect, useRef, useState } from "react"
-import { Head, usePage, Link } from '@inertiajs/inertia-react';
+import { Head, usePage, Link, useForm } from '@inertiajs/inertia-react';
 import Paginator from "./Paginator"
 import { Inertia } from "@inertiajs/inertia";
 
 const DataTable = ({fetchUrl,columns,displayColumns,redirectedTo }) =>{
+
+    // const {delete: destroy} = useForm()
 
     const [data, setData] = useState([])
     const [perPage, setPerPage] = useState(10)
@@ -31,8 +33,10 @@ const DataTable = ({fetchUrl,columns,displayColumns,redirectedTo }) =>{
     }
 
     function destroy(e) {
-        if (confirm("Are you sure you want to delete this user?")) {
+        e.preventDefault()
+        if (confirm("Are you sure you want to delete this record?")) {
             Inertia.delete(route(redirectedTo +'.destroy', e.currentTarget.id));
+            fetchData();
         }
     }
 
@@ -51,27 +55,25 @@ const DataTable = ({fetchUrl,columns,displayColumns,redirectedTo }) =>{
     }
 
     useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true)
-            const params = {
-                search,
-                sort_field: sortColumn,
-                sort_order: sortOrder,
-                per_page: perPage,
-                page: currentPage,
-            }
-            const { data } = await axios(fetchUrl, { params })
-            setData(data.data)
-            setPagination(data.meta)
-            setTimeout(() => {
-                setLoading(false)
-            }, 300)
-        }
-
-        fetchData()
-
+        fetchData();
     }, [perPage, sortColumn, sortOrder, search, currentPage])
 
+    const fetchData = async () => {
+        setLoading(true)
+        const params = {
+            search,
+            sort_field: sortColumn,
+            sort_order: sortOrder,
+            per_page: perPage,
+            page: currentPage,
+        }
+        const { data } = await axios(fetchUrl, { params })
+        setData(data.data)
+        setPagination(data.meta)
+        setTimeout(() => {
+            setLoading(false)
+        }, 300)
+    }
     
     return (
                 <div>
