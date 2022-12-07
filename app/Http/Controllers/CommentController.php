@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
+use App\Models\Blog;
+use Illuminate\Support\Facades\Gate;
+use Inertia\Inertia;
 
 class CommentController extends Controller
 {
@@ -81,7 +84,7 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        var_dump($request);
     }
 
     /**
@@ -92,6 +95,16 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comments = Comment::findOrFail($id);
+        $blog_id  =  $comments["post_id"];       
+        $this->authorize('delete', $comments);
+        $comments->delete();
+
+        if(Gate::allows('isUser')){
+            return redirect()->route('blog.showBlog' ,$blog_id);
+        }
+        else{
+            return redirect()->route('blog.show' ,$blog_id);
+        }
     }
 }

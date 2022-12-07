@@ -8,7 +8,9 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import Moment from 'moment';
 import BlogShowItem from '@/Components/BlogShowItem';
+import CommentList from '@/Components/CommentList';
 
+// { auth, header, children }
 
 export default function Show(props) {
     
@@ -30,7 +32,36 @@ export default function Show(props) {
 
     });
 
-   
+    const [commentList, setcommentList] = useState([]);
+
+    // if(data.id){
+    //     comment(data.id);
+    // }
+    
+
+    useEffect(() => {
+        comment(data.id);
+    }, []);
+
+    async function comment(id){
+        const response = await axios.get('/commentlist/' + id);
+        if (response.data.comments){
+            setcommentList(response.data.comments);
+        }
+        // const response = await axios.get('/comment',{
+        //     params: {
+        //         id: 1
+        //     }
+        // });
+    }
+
+    const comment_list = commentList.map( (comment, index) => {
+        return <CommentList key={index} comment={comment} role={props.auth.user.role} user_id = {props.auth.user.id}/>
+    })
+
+
+
+
 
 
     
@@ -70,7 +101,7 @@ export default function Show(props) {
             errors={props.errors}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Welcome : {props.auth.user.name} .You have : {props.auth.user.role} rights</h2>}
         >
-            <Head title="User Details" />
+            <Head title="Blog Details" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -100,18 +131,14 @@ export default function Show(props) {
                             </div>
 
                             <div className="row">
-                                {/* <button
-                                    type="submit"
-                                    className="mx-1 px-4 py-2 text-sm text-white bg-orange-400 rounded"
-                                >
-                                    Comments
-                                </button> */}
                                 <h1 className="mx-1 px-4 py-2 text-sm text-white bg-orange-400 rounded">Comments</h1>
                             </div>
                             <div className="row">
                                 <br />
                             </div>
-
+                            <div className="row">
+                                {comment_list}
+                            </div>    
                         </div>
                        
                     </div>

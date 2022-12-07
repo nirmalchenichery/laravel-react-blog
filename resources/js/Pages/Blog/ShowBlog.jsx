@@ -49,7 +49,7 @@ export default function ShowBlog(props) {
     }, []);
 
     const comment_list = commentList.map( (comment, index) => {
-        return <CommentList key={index} comment={comment}/>
+        return <CommentList key={index} comment={comment} role={props.auth.user.role} user_id = {props.auth.user.id}/>
     })
 
     const submit = (e) => {
@@ -122,7 +122,10 @@ export default function ShowBlog(props) {
                             {comment_list}
                         </div>
 
-                    </div>    
+                    </div>  
+
+                                     
+
                 </div>
             </div>
         </>
