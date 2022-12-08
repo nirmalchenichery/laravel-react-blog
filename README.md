@@ -42,3 +42,5 @@ composer require barryvdh/laravel-debugbar
 php artisan make:model Employee -mfs
 
 <!-- npm i react-modal -->
+
+npm i @heroicons/react

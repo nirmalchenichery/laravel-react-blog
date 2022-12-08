@@ -6,6 +6,7 @@ import {Link} from '@inertiajs/inertia-react';
 import Modal from "@/Components/ModalCustomized";
 import { useState } from "react";
 
+
 const CommentList = (props) => {
 
     function destroy(e) {
@@ -15,6 +16,15 @@ const CommentList = (props) => {
         }
     }
 
+    const [showModal, setShowModal] = useState(false);
+
+    function showComments(id) {
+        // console.log("sss");
+        setShowModal(true);
+        // // comment(id);
+    }
+
+
     return (
         <>
             <div className="mt-4">
@@ -22,17 +32,36 @@ const CommentList = (props) => {
 
                     {
                         props.comment.user_id == props.user_id ?
-                                                            <Link
-                                                            tabIndex="1"
-                                                            className="mx-1 px-4 py-2 text-sm text-white bg-green-500 rounded"
-                                                            style={{textDecoration: 'none'}}
-                                                            href={route('comment.edit', props.comment.id)}
+                                                        // <Link
+                                                        //     tabIndex="1"
+                                                        //     className="mx-1 px-4 py-2 text-sm text-white bg-green-500 rounded"
+                                                        //     style={{textDecoration: 'none'}}
+                                                        //     href={route('comment.edit', props.comment.id)}
+                                                            
+                                                        // >
+                                                        //     Edit
+                                                        // </Link>
+                                                        <button
+                                                          className="mx-1 px-4 py-2 text-sm text-white bg-green-500 rounded"
+                                                          type="button"
+                                                          onClick={() => {
+                                                              showComments(props.comment.id);
+                                                          }}
                                                         >
                                                             Edit
-                                                        </Link>
+                                                        </button>
                                                       :""
                     }
 
+                    {showModal && 
+                        <Modal 
+                        OpenOrShowModal={setShowModal} 
+                        title="Comments" 
+                        btnOk ="OK"
+                        btnClose="Close"
+                        content="Nirmal TexT"
+                    />
+                    }
                     {
                        props.comment.user_id == props.user_id ||  props.role === 'manager'? 
                                                         <button

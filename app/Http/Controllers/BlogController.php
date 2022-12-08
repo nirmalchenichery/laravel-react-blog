@@ -192,6 +192,14 @@ class BlogController extends Controller
                 ->with('blog' ,$blog);
     }
 
+    public function showModal($id)
+    {
+        $blog = Blog::findOrFail($id);
+        return Inertia::render('Blog/ModalExample')
+                ->with('blog' ,$blog);
+    }
+
+
     public function upvote(BlogRequest $request){
         //authorize::isUser
         //blog request -> post id

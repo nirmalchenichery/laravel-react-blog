@@ -28,6 +28,8 @@ export default function ShowBlog(props) {
         comment :""
 
     });
+    
+    // const [showModal, setShowModal] = useState(false);
 
     const [commentList, setcommentList] = useState([]);
 
@@ -42,6 +44,14 @@ export default function ShowBlog(props) {
         //     }
         // });
     }
+
+    // function showComments(id) {
+    //     // console.log("sss");
+    //     setShowModal(true);
+    //     // // comment(id);
+    // }
+
+
 
     useEffect(() => {
         comment(data.id);
@@ -88,6 +98,17 @@ export default function ShowBlog(props) {
                         <BlogShowDetail blog={data} />
                     </div>
 
+                    {/* <button
+                        className="px-4 py-2 text-purple-100 bg-purple-600 rounded-md"
+                        type="button"
+                        onClick={() => {
+                            showComments(data.id);
+                        }}
+                    >
+                        Show Comments
+                    </button> */}
+
+
                     <div className="row">
                         <form onSubmit={submit}>
                             <div className="p-2 mt-4 mb-4">
@@ -120,6 +141,21 @@ export default function ShowBlog(props) {
                         <div className="row">
                             {comment_list}
                         </div>
+
+
+                        {/* <div className='row'>
+                            {showModal && 
+                                <Modal 
+                                OpenOrShowModal={setShowModal} 
+                                title="Comments" 
+                                btnOk ="OK"
+                                btnClose="Close"
+                                content="Nirmal TexT"
+                            />
+                            }
+                        </div> */}
+
+                        
                     </div>  
                 </div>
             </div>

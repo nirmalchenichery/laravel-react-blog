@@ -30,6 +30,9 @@ Route::resource('/comment', CommentController::class);
 Route::get('/commentlist/{id}', [CommentController::class, 'index'])->name('comment.index');
 
 Route::get('/userlist', [UserController::class, 'getUser'])->name('user.getuser');
+Route::get('/showModal/{id}', [BlogController::class, 'showModal'])->name('blog.showModal');
+
+
 
 Route::get('/dashboard', function () {
     if (Gate::allows('isAdmin')){
