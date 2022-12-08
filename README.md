@@ -36,3 +36,9 @@ npm install --save @fortawesome/react-fontawesome -->
 npm install font-awesome --save  
 
 php artisan migrate:refresh --seed
+
+composer require barryvdh/laravel-debugbar
+
+php artisan make:model Employee -mfs
+
+<!-- npm i react-modal -->

@@ -9,6 +9,8 @@ use App\Http\Requests\UserRequest;
 use Inertia\Inertia;
 // use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Log;
+use Exception;
 
 class UserController extends Controller
 {
@@ -136,5 +138,18 @@ class UserController extends Controller
         $this->authorize('delete',$user);
         $user->delete();
         return redirect()->route('dashboard');
+    }
+
+    public function getUser()
+    {
+       try{
+            $user = User::all();
+            return response()->json($user);
+       }
+       catch(Exception $e){
+          Log::error($e);
+       }
+       
+        // var_dump("dddd");exit();
     }
 }

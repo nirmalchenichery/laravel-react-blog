@@ -1,4 +1,4 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+// import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm, usePage } from '@inertiajs/inertia-react';
 import React, { useEffect,useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -6,7 +6,6 @@ import Moment from 'moment';
 import BlogShowDetail from '@/Components/BlogShowDetail';
 import BlogTitle from '@/Components/BlogTitle';
 import axios, { Axios } from 'axios';
-
 import CommentList from '@/Components/CommentList';
 
 export default function ShowBlog(props) {
@@ -121,14 +120,9 @@ export default function ShowBlog(props) {
                         <div className="row">
                             {comment_list}
                         </div>
-
                     </div>  
-
-                                     
-
                 </div>
             </div>
         </>
     );
-
 }

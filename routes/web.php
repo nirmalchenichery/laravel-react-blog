@@ -29,6 +29,7 @@ Route::get('/showblog/{id}', [BlogController::class, 'showBlog'])->name('blog.sh
 Route::resource('/comment', CommentController::class);
 Route::get('/commentlist/{id}', [CommentController::class, 'index'])->name('comment.index');
 
+Route::get('/userlist', [UserController::class, 'getUser'])->name('user.getuser');
 
 Route::get('/dashboard', function () {
     if (Gate::allows('isAdmin')){
