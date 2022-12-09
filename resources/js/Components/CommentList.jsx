@@ -1,13 +1,15 @@
-import React from 'react';
+import React,{ useState } from 'react';
 import { Inertia } from "@inertiajs/inertia";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Moment from 'moment';
 import {Link} from '@inertiajs/inertia-react';
 import Modal from "@/Components/ModalCustomized";
-import { useState } from "react";
-
+import ModalDialog from '@/Components/ModalDialog'; 
+import EditComment from '@/Components/EditComment'; 
 
 const CommentList = (props) => {
+
+    const [showModal, setShowModal] = useState(false);
 
     function destroy(e) {
         e.preventDefault()
@@ -16,14 +18,7 @@ const CommentList = (props) => {
         }
     }
 
-    const [showModal, setShowModal] = useState(false);
-
-    function showComments(id) {
-        // console.log("sss");
-        setShowModal(true);
-        // // comment(id);
-    }
-
+    // Comment Edit form Prepare Here
 
     return (
         <>
@@ -32,36 +27,27 @@ const CommentList = (props) => {
 
                     {
                         props.comment.user_id == props.user_id ?
-                                                        // <Link
-                                                        //     tabIndex="1"
-                                                        //     className="mx-1 px-4 py-2 text-sm text-white bg-green-500 rounded"
-                                                        //     style={{textDecoration: 'none'}}
-                                                        //     href={route('comment.edit', props.comment.id)}
-                                                            
-                                                        // >
-                                                        //     Edit
-                                                        // </Link>
                                                         <button
                                                           className="mx-1 px-4 py-2 text-sm text-white bg-green-500 rounded"
                                                           type="button"
-                                                          onClick={() => {
-                                                              showComments(props.comment.id);
-                                                          }}
+                                                          onClick={() => setShowModal(true)}
                                                         >
                                                             Edit
                                                         </button>
                                                       :""
                     }
 
-                    {showModal && 
-                        <Modal 
-                        OpenOrShowModal={setShowModal} 
-                        title="Comments" 
-                        btnOk ="OK"
-                        btnClose="Close"
-                        content="Nirmal TexT"
-                    />
+                    
+                    {
+                        showModal ? <EditComment 
+                                    setShowModal={setShowModal}
+                                    title="Edit Comment" 
+                                    btnOk ="Save"
+                                    btnClose="Cancel"
+                                    content={props.comment}
+                                /> : ""
                     }
+
                     {
                        props.comment.user_id == props.user_id ||  props.role === 'manager'? 
                                                         <button

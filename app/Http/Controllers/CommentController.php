@@ -82,9 +82,21 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CommentRequest $request, $id)
     {
-        var_dump($request);
+        // var_dump(Comment::find($id));exit();
+
+        Comment::find($id)->update([
+            'user_id'               => $request->input('user_id'),
+            'post_id'               => $request->input('post_id'),
+            'email'                 => Auth::user()->email,
+            'comment'               => $request->validated('comment'),
+        ]);
+
+        return redirect()->route("blog.showBlog", $request->input('post_id'));
+
+        
+
     }
 
     /**

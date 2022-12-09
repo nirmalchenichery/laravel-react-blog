@@ -1,9 +1,9 @@
 import React from 'react';
-import { Head, usePage, Link } from '@inertiajs/inertia-react';
-import Authenticated from '@/Layouts/AuthenticatedLayout';
-import { Inertia } from "@inertiajs/inertia";
+// import { Head, usePage, Link } from '@inertiajs/inertia-react';
+// import Authenticated from '@/Layouts/AuthenticatedLayout';
+// import { Inertia } from "@inertiajs/inertia";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Routes, Route, useNavigate} from 'react-router-dom';
+// import {Routes, Route, useNavigate} from 'react-router-dom';
 
 
 const BlogTitle = (props) => {

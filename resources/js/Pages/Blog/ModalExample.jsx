@@ -2,7 +2,7 @@ import { Head, Link, useForm, usePage } from '@inertiajs/inertia-react';
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Modal from '@/Components/ModalEx';
-import ModalDialog from '@/Components/ModalDialog'; 
+import ModalDialog from '@/Components/ModalDialogCall'; 
 import SimpleWithGrayFooter from '@/Components/SimpleWithGrayFooter'; 
 
 export default function ShowBlog(props) {

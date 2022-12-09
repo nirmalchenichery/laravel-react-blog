@@ -150,7 +150,7 @@ class BlogController extends Controller
         // Checkbox and Radio button
         $posted_at=  $request->validated('posted_date') . " ". $request->validated('posted_time');
 
-        Blog::create([
+        Blog::find($id)->update([
             'language'              => $request->validated('language'),
             'title'                 => $request->validated('title'),
             'description'           => $request->validated('description'),
@@ -164,7 +164,6 @@ class BlogController extends Controller
             'image_url_portrait'    =>"https://picsum.photos/300/350",
             'image_url_landscape'   =>"https://picsum.photos/300/350",
             'is_trending'           =>true,
-            
         ]);
         
         return redirect()->route('blog.index');

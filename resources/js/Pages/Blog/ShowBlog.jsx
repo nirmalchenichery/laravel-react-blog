@@ -45,14 +45,6 @@ export default function ShowBlog(props) {
         // });
     }
 
-    // function showComments(id) {
-    //     // console.log("sss");
-    //     setShowModal(true);
-    //     // // comment(id);
-    // }
-
-
-
     useEffect(() => {
         comment(data.id);
     }, []);
